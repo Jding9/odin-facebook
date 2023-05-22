@@ -1,0 +1,21 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.feed {
+    width: 1000px;
+    margin: auto;
+}
+
+.post {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.comment-section {
+    width: 500px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+}

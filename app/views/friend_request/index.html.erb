@@ -1,0 +1,47 @@
+<h1>Here are all your friend requests</h1>
+
+<h2>Incoming Friend Requests</h2>
+<% if @incoming_requests.blank? %>
+    <%= "You have no incoming friend requests" %>
+<% else %>
+    <% @incoming_requests.each do |request| %>
+        <p>
+            <div>
+                <% user = @users.find(request.requestor_id) %>
+                <%= user.first_name %>
+                <%= user.last_name %>
+                <%= link_to "Accept", friendships_path(user_id: request.requestor_id, friend_id: request.receiver_id), method: :post %>
+                <%= link_to "Delete", friend_request_path(request.id), :method => :delete %>
+            </div>
+        </p>
+    <% end %>
+<% end %>
+
+<h2>Outgoing Friend Requests</h2>
+
+<% if @outgoing_requests.blank? %>
+    <%= "You have no outgoing friend requests" %>
+<% else %>
+    <% @outgoing_requests.each do |request| %>
+        <p>
+            <div>
+                <% user = @users.find(request.receiver_id) %>
+                <%= user.first_name %>
+                <%= user.last_name %>
+                <%= link_to "Cancel Request", friend_request_path(request.id), :method => :delete %>
+            </div>
+        </p>
+    <% end %>
+<% end %>
+
+<h2>People You Can Send a Friend Request To</h2>
+
+<% @users.each do |user| %>
+    <p>
+    <div>
+        <%= user.first_name %>
+        <%= user.last_name %>
+        <%= link_to "Add Friend", {action: :create, :requestor_id => current_user.id, :receiver_id => user.id}, method: "post" %>
+    </div>
+    </p>
+<% end %>

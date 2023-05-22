@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<div class="feed">
+
+  <p>Hello <%= full_name(current_user.id) %></p>
+
+  <!-- New Post -->
+
+  <div class="post">
+    <%= render 'form', post: @post %>
+  </div>
+
+  <!-- Posts from User and All Friends -->
+
+  <% @filtered_posts.each do |post| %>
+    <div class="post">
+      <% @post = post %>
+      <div><%= post.content %></div>
+      <div>
+        <%= full_name(post.user_id) %>
+      </div>
+      <div>
+        <%= link_to 'Show', post %>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+      <div>
+        Likes: <%= post.likes.count %>
+        <%= like_button(post, current_user) %>
+      </div>
+      <div class="comment-section">
+        <div class="comment">
+          <%= render 'comments/form', locals: {post: @post, comment: @comment} %>
+        </div>
+        <div class="comment">
+          <% if post.comments.any? %>
+            <% post.comments.each do |comment| %>
+              <%= comment.body %>
+              <%= comment.user_id %>
+              Posted By: <%= full_name(comment.user_id) %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+
+
+<br>
+

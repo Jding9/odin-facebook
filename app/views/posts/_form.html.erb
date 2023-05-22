@@ -1,0 +1,18 @@
+<%= form_with model: @post do |form| %>
+
+  <div class="grid-container">
+
+    <div class="grid-child">
+      <%= form.text_area :content %>
+    </div>
+
+    <div class="grid-child">
+      <%= form.hidden_field :user_id, :value => current_user.id %>
+    </div>
+
+    <div class="grid-child">
+      <%= form.submit "Post" %>
+    </div>
+  </div>
+
+<% end %>
