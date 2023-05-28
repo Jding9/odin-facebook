@@ -23,6 +23,10 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
 
+    #Deletes the original friend request
+    FriendRequest.where(requestor_id: friendship_params.user_id, receiver_id: friendship_params.friend_id).delete
+    
+
     respond_to do |format|
       if @friendship.save
         format.html { redirect_to friend_request_index_url, notice: "Friendship was successfully created." }

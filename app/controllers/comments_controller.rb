@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
     before_action :get_post
-    before_action :set_comment, only: [:show, :edit, :update, :delete]
+    before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
     def index
         @comments = @post.comments
@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
 
     def create
         @comment = @post.comments.create(comment_params)
+        redirect_to "localhost:3000/posts"
     end
 
     def update
@@ -23,6 +24,7 @@ class CommentsController < ApplicationController
 
     def destroy
         @comment.destroy
+        redirect_to "localhost:3000/posts"
     end
 
     private

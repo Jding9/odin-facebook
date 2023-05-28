@@ -17,12 +17,13 @@
       <% @post = post %>
       <div><%= post.content %></div>
       <div>
-        <%= full_name(post.user_id) %>
+        <% if post.user_id == current_user.id %>
+          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
       </div>
       <div>
-        <%= link_to 'Show', post %>
-        <%= link_to 'Edit', edit_post_path(post) %>
-        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= full_name(post.user_id) %>
       </div>
       <div>
         Likes: <%= post.likes.count %>
@@ -36,8 +37,11 @@
           <% if post.comments.any? %>
             <% post.comments.each do |comment| %>
               <%= comment.body %>
-              <%= comment.user_id %>
-              Posted By: <%= full_name(comment.user_id) %>
+              - <%= full_name(comment.user_id) %>
+              <% if comment.user_id == current_user.id %>
+                <%= link_to 'Delete', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+              <br>
             <% end %>
           <% end %>
         </div>

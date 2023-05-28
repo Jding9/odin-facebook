@@ -1,0 +1,12 @@
+<h1><%= full_name(@user.id) %></h2>
+<img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp" />
+<p>You can reach me at <%= @user.email %></p>
+
+<ul>
+    <% @posts.each do |post| %>
+        <div>
+            <%= post.content %>
+            <%= post.created_at %>
+        </div>
+    <% end %> 
+</ul>

@@ -1,7 +1,6 @@
 class FriendRequestController < ApplicationController
     def index
         @users = User.all
-        # to do - have a filtered table for only people that aren't friends and aren't requested
         @incoming_requests = current_user.incoming_requests
         @outgoing_requests = current_user.outgoing_requests
     end

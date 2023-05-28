@@ -1,0 +1,31 @@
+<div class="feed">
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Actions</th>
+        </tr>
+
+        <% @users.each do |user| %>
+        <tr>
+            <td><%= full_name(user.id) unless user.id == current_user.id %></td>
+            <td>
+                <!-- Check if the user is a friend, check if user has outgoing request, check if user has incoming request, or none of the above, found in users_helper.rb -->
+                <% if user.id == current_user.id %> <!-- no output if this is the case -->
+                <% elsif check_relationship(user.id, current_user.id) == "Friend" %>
+                    <p> Friend </p>
+                <% elsif check_relationship(user.id, current_user.id) == "Outgoing Request" %>
+                    <% friend_request = @friendrequests.find_by(requestor_id: current_user.id, receiver_id: user.id) %>
+                    <%= link_to "Cancel Friend Request", friend_request_path(friend_request), method: :delete %>
+                <% elsif check_relationship(user.id, current_user.id) == "Incoming Request" %>
+                    <% friend_request = @friendrequests.find_by(requestor_id: user.id, receiver_id: current_user.id) %>
+                    <%= link_to "Accept Request", friendships_path(user_id: user.id, friend_id: current_user.id), method: :post %>
+                    <%= link_to "Reject Request", friend_request_path(friend_request.id), :method => :delete %>
+                <% else %>
+                    <%= link_to "Add Friend", friend_request_index_path(requestor_id: current_user.id, receiver_id: user.id), method: :post %>
+                <% end %>
+            </td>
+        </tr> 
+        <% end %>
+
+    </table>
+</div>

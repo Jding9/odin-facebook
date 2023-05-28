@@ -1,12 +1,12 @@
 <div class="gradient-custom border">
     <ul class="nav justify-content-end">
-      
+
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="http://localhost:3000">Homepage</a>
+        <a class="nav-link active" aria-current="page" href="http://localhost:3000/posts">Home</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="http://localhost:3000/posts">Posts</a>
+        <a class="nav-link active" aria-current="page" href="http://localhost:3000/users">Users</a>
       </li>
 
       <li class="nav-item">
@@ -14,13 +14,16 @@
           Friend Requests
           <% if user_signed_in? %>
             (<%= current_user.incoming_requests.count %>)
-            User Id: <%= current_user.id %>
           <% end %>
         </a>
       </li>
 
+      <!-- Link to My Profile -->
+
       <li class="nav-item">
-        <%= button_to 'Sign Out', destroy_user_session_path, method: :delete %>
+        <div class="nav-link active" aria-current="page">
+          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+        </div>
       </li>
 
     </ul>
